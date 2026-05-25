@@ -1,0 +1,7 @@
+from django.shortcuts import render
+from django.http import HttpResponse
+
+# Create your views here.
+
+def show(request):
+    return HttpResponse('<h1 style="font-family:sans-serif;">successfully created the intro section</h1>')

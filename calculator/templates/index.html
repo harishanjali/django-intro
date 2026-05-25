@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calculator</title>
+</head>
+<body>
+    <form action="" method="POST">
+        {%csrf_token%}
+        <label for="">
+            value 1
+            <input type="text" name="v1"/>
+
+        </label><br><br>
+        <label for="">
+            value 2
+            <input type="text" name="v2"/>
+
+        </label><br><br>
+
+        <input type="submit" value="addition"/>
+    </form>
+</body>
+</html>
