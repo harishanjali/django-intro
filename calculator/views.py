@@ -12,5 +12,17 @@ def calculate(request):
         print(request.POST)
         v1 = int(request.POST['v1'])
         v2 = int(request.POST['v2'])
-        res = v1+v2
-        return HttpResponse(f'addition is ${res}')
+        operation=''
+        if request.POST.get('add'):
+            res = v1+v2
+            operation='add'
+        elif request.POST.get('subs'):
+            res = v1-v2
+            operation = 'subtraction'
+        elif request.POST.get('multi'):
+            res = v1*v2
+            operation='multiplication'
+        else:
+            res = v1/v2
+            operation='division'
+        return render(request,'index.html',{'res':res,'operation':operation})
