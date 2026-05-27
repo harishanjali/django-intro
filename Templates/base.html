@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed Dashboard Layout</title>
+    <!-- Link to your external CSS file -->
+    <link rel="stylesheet" href="{% static 'css/main.css'%}">
+</head>
+<body>
+
+    <!-- Top Fixed Navbar -->
+    <nav class="navbar">
+        <div class="logo">Django Learning curve</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Sidebar (Fixed to the left side) -->
+    <aside class="sidebar">
+        <ul class="sidebar-links">
+            <li><a href="#" class="active">Dashboard</a></li>
+            <li><a href="http://127.0.0.1:8000/calculator/">Calculator</a></li>
+            <li><a href="http://127.0.0.1:8000/calculator/mtable/">Mtable</a></li>
+            <!-- <li><a href="#">Settings</a></li>
+            <li><a href="#">Help</a></li> -->
+        </ul>
+    </aside>
+
+    <!-- Main Content Area (Scrollable, right of sidebar) -->
+    <main class="main-content">
+        {% block main %}
+
+        {% endblock %}
+        <!-- <h1>Welcome to Your Dashboard</h1>
+        <p>This is the main content area. It sits safely to the right of your sidebar and below your navbar.</p> -->
+        
+        <!-- Placeholder cards to show scrolling behavior -->
+        <!-- <div class="card-grid">
+            <div class="card"><h3>Stat 1</h3><p>Data goes here...</p></div>
+            <div class="card"><h3>Stat 2</h3><p>Data goes here...</p></div>
+            <div class="card"><h3>Stat 3</h3><p>Data goes here...</p></div>
+        </div>
+        
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Satius autem fuit posse negare fuerit equidem aliquando cum eis. Vide, quantum inflati simus iudicio faciamus iis优点. Si longiorem orationem vobis, opiniones meae vos delectabunt.</p>
+        <p>Add enough content here and you will notice that only this section scrolls, while the top navigation, sidebar, and bottom footer stay firmly locked in place.</p> -->
+    </main>
+
+    <!-- Bottom Fixed Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Your Company Name. All rights reserved.</p>
+    </footer>
+    <script src="{% static 'javascript/calculator/validate.js' %}"></script>
+</body>
+</html>

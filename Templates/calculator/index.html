@@ -1,0 +1,32 @@
+
+
+{% extends 'base.html' %}
+{% block main %}
+<h1>Calculator</h1>
+<form action="" method="POST" id="myform">
+    {%csrf_token%}
+    <label for="">
+        value 1
+        <input class="input-clean" type="text" name="v1" id="v1"/>
+
+    </label><br><br>
+    <label for="">
+        value 2
+        <input  class="input-clean" type="text" name="v2" id="v2"/>
+
+    </label><br><br>
+
+    <input class="btn btn-primary" type="submit" value="addition" name="add"/>
+    <input class="btn btn-primary" type="submit" value="subs" name="subs"/>
+    <input class="btn btn-primary" type="submit" value="multi" name="multi"/>
+    <input class="btn btn-primary" type="submit" value="division" name="division"/>
+</form>
+{% if res %}
+    {% if operation == "add" %}
+        <p style="color:green;">{{res}}</p>
+    {% else %}
+        <p style="color:blue;">{{res}}</p>
+    {% endif %}
+{% endif %}
+{% endblock %}
+

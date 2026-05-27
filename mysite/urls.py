@@ -23,5 +23,6 @@ urlpatterns = [
     path('hari/',include('firstApp.urls')),
     path('intro/',include('intro.urls')),
     path('calculator/',include('calculator.urls')),
-    path('student/',include('student.urls'))
+    path('student/',include('student.urls')),
+    path('student/mtable',include('student.urls'))
 ]
