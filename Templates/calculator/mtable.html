@@ -3,7 +3,13 @@
 {% block main %}
    <h1>Maths Table</h1>
     <form action="" method="POST">
+        {% csrf_token %}
         <input type="number" name="v1"/>
         <input type="submit"/>
     </form>
+    {% if tables %}
+    {% for table in tables %}
+        <p>{{table}}</p>
+    {% endfor %}
+    {% endif %}
 {% endblock %}

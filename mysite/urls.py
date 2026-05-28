@@ -24,5 +24,7 @@ urlpatterns = [
     path('intro/',include('intro.urls')),
     path('calculator/',include('calculator.urls')),
     path('student/',include('student.urls')),
-    path('student/mtable',include('student.urls'))
+    path('student/mtable',include('student.urls')),
+    path('students/',include('students.urls')),
+    path('students/about/',include('students.urls'))
 ]
