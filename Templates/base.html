@@ -4,11 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fixed Dashboard Layout</title>
+    <title>Django Introduction</title>
     <!-- Link to your external CSS file -->
     <link rel="stylesheet" href="{% static 'css/main.css'%}">
 </head>
 <body>
+    <!-- toast container -->
+    {% if messages %}
+    <div id="deleteToast" class="toast-notification">
+        <span class="toast-icon">✓</span>
+        {% for message in messages %}
+        <span class="toast-message">{{message}}</span>
+        {% endfor %}
+    </div>
+    {% endif %}
 
     <!-- Top Fixed Navbar -->
     <nav class="navbar">
@@ -23,10 +32,12 @@
     <!-- Sidebar (Fixed to the left side) -->
     <aside class="sidebar">
         <ul class="sidebar-links">
-            <li><a href="#" class="active">Dashboard</a></li>
-            <li><a href="/calculator/">Calculator</a></li>
-            <li><a href="/calculator/mtable/">Mtable</a></li>
-            <li><a href="/students/">Students</a></li>
+            <li><a href="/" class="{% if request.path == '/' %}active{% endif %}">Dashboard</a></li>
+            <li><a href="/calculator/" class="{% if request.path == '/calculator/' %}active{% endif %}">Calculator</a></li>
+            <li><a href="/calculator/mtable/" class="{% if request.path == '/calculator/mtable/' %}active{% endif %}">Mtable</a></li>
+            <li><a href="/students/" class="{% if request.path == '/students/' %}active{% endif %}">Students</a></li>
+            <li><a href="/product/create/" class="{% if request.path == '/product/create/' %}active{% endif %}">Add Product</a></li>
+            <li><a href="/product/view/" class="{% if request.path == '/product/view/' %}active{% endif %}">View Products</a></li>
             <!-- <li><a href="#">Settings</a></li>
             <li><a href="#">Help</a></li> -->
         </ul>
@@ -56,5 +67,22 @@
         <p>&copy; 2026 Your Company Name. All rights reserved.</p>
     </footer>
     <script src="{% static 'javascript/calculator/validate.js' %}"></script>
+    {% if messages is not None %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const toast = document.getElementById("deleteToast");
+            
+            // Step 1: Slide the popup into view almost immediately
+            setTimeout(() => {
+                toast.classList.add("show");
+            }, 100);
+
+            // Step 2: Leave it visible for 2000ms (2 seconds), then remove the 'show' class
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 2100); // 100ms delay + 2000ms display time
+        });
+    </script>
+    {% endif %}
 </body>
 </html>

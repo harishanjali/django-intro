@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block main %}
+    <h1>View Page</h1>
+    <table border="1px">
+        <tr>
+            <th>Id</th>
+            <th>Product name</th>
+            <th>Product price in Rs.</th>
+            <th>Category</th>
+            <th>Update Action</th>
+            <th>Delete action</th>
+        </tr>
+        {% for product in products %}
+            <tr>
+                <td>{{product.id}}</td>
+                <td><a href="{% url 'update' product.id %}">{{product.pname}}</a></td>
+                <td>{{product.pprice}}</td>
+                <td>{{product.pcategory}}</td>
+                <td><a href="{% url 'update' product.id %}">Update</a></td>
+                <td><a href="{% url 'delete' product.id %}">Delete</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

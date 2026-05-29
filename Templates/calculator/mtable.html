@@ -4,8 +4,8 @@
    <h1>Maths Table</h1>
     <form action="" method="POST">
         {% csrf_token %}
-        <input type="number" name="v1"/>
-        <input type="submit"/>
+        <input class="input-clean" type="number" name="v1"/>
+        <input type="submit" class="btn btn-primary"/>
     </form>
     {% if tables %}
     {% for table in tables %}
