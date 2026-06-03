@@ -13,16 +13,13 @@
     </label>
     <label>
         Select Category
-        <select name="pcat" id="" value="{{product.pcategory}}">
-            <option>
-                Electronics
-            </option>
-            <option>
-                HOME/Furiniture
-            </option>
-            <option>
-                Groceries
-            </option>
+        <select name="pcat" id="">
+            <option value="">None / Unassigned</option>
+            {% for category in categories %}
+                <option value="{{ category.cat_id }}" {% if product.cat_id == category.cat_id %}selected{% endif %}>
+                    {{ category.cat_name }}
+                </option>
+            {% endfor %}
         </select>
     </label>
     <input class="btn btn-primary" type="submit" value="UPDATE"/>

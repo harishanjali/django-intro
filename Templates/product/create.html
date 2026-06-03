@@ -14,15 +14,12 @@
     <label>
         Select Category
         <select name="pcat" id="">
-            <option value="Electronics">
-                Electronics
-            </option>
-            <option value="HOME/Furiniture">
-                HOME/Furiniture
-            </option>
-            <option value="Groceries">
-                Groceries
-            </option>
+            <option value="">None / Unassigned</option>
+            {% for category in categories %}
+                <option value="{{ category.cat_id }}">
+                    {{ category.cat_name }}
+                </option>
+            {% endfor %}
         </select>
     </label>
     <input class="btn btn-primary" type="submit" value="POST"/>
