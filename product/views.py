@@ -10,7 +10,7 @@ def create(request):
         return render(request,'product/create.html',{'product':product,'categories':all_categories})
     if request.method=='POST':
         pname = request.POST.get('pname')
-        pprice = int(request.POST.get('pprice'))
+        pprice = float(request.POST.get('pprice'))
         cat = int(request.POST.get('pcat'))
 
         pobj = Products.objects.create(pname=pname,pprice=pprice,cat_id=cat)
@@ -21,7 +21,7 @@ def create(request):
 
 def view(request):
     if request.method=="GET":
-        products = Products.objects.all()
+        products = Products.objects.select_related('cat')
         return render(request,'product/view.html',{'products':products})
     
 def update(request,pk):

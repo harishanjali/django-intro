@@ -8,3 +8,108 @@ step2: type base_url/admin then page will open
 step3: you can see the page with details
 if you wants to give access to tables, you can give like this in admin.py file
 admin.site.register(Product)
+
+#common questions rises in our mind
+1. Store Employee Details
+Simple Definition: A Django model is a Python class that represents a database table. Each attribute in the class represents a column in the table.
+
+how to write
+from django.db import models
+
+class Employee(models.Model):
+    first_name = models.CharField(max_name=100)
+    last_name = models.CharField(max_name=100)
+    hire_date = models.DateField()
+
+2. Add a New Field Without Losing Data
+Simple Definition: To add a field safely, you must provide a default value or allow it to be empty (null=True). Then, you run migrations to update the database schema without wiping existing rows.
+
+write
+class Employee(models.Model):
+    # ... existing fields ...
+    department = models.CharField(max_length=100, default="Unassigned")
+
+python manage.py makemigrations
+python manage.py migrate
+
+3. Implement Soft Delete
+Simple Definition: Instead of permanently erasing a database row, "soft deleting" marks a row as inactive (usually with a boolean flag like is_deleted), keeping the data intact for records.
+
+from django.db import models
+
+class Employee(models.Model):
+    name = models.CharField(max_length=100)
+    is_deleted = models.BooleanField(default=False)
+
+    def soft_delete(self):
+        self.is_deleted = True
+        self.save()
+
+4. Enforce Unique Email Addresses
+Simple Definition: You use the unique=True constraint on a model field. This tells the database to reject any new entry that tries to reuse an email address already in that column.
+
+class Employee(models.Model):
+    email = models.EmailField(unique=True)
+
+5. Store Uploaded Profile Pictures
+Simple Definition: You use an ImageField, which stores the file path string in the database while uploading the actual file to your server's media storage directory.
+
+class Employee(models.Model):
+    # Requires the 'Pillow' library installed via pip
+    profile_picture = models.ImageField(upload_to='profile_pics/')
+
+Views & Templates
+6. Display Data from a Model in a Template
+Simple Definition: Fetch the records using Django's ORM in your view, pass them to the template, and use a Jinja-like {% for %} loop to display them.
+
+How to write it:
+
+View (views.py):
+from django.shortcuts import render
+from .models import Employee
+
+def employee_list(request):
+    employees = Employee.objects.all()
+    return render(request, 'employees.html', {'employees': employees})
+
+
+7. Show Only Active Users
+Simple Definition: Use the .filter() method in your Django ORM query to select only the records where the active status is set to True.
+from django.contrib.auth.models import User
+from django.shortcuts import render
+
+def active_users_view(request):
+    active_users = User.objects.filter(is_active=True)
+    return render(request, 'active_users.html', {'users': active_users})
+
+8. Pass Data from a View to a Template
+Simple Definition: Data is passed via a Python dictionary called the context. The keys in this dictionary become variables you can use inside your HTML template.
+
+def my_view(request):
+    # The dictionary {'app_name': 'Employee Portal'} is the context
+    return render(request, 'home.html', {'app_name': 'Employee Portal'})
+
+<h1>Welcome to {{ app_name }}</h1>
+
+9. Implement Search Functionality in a List View
+Simple Definition: Grab the search term from the URL query parameters using request.GET and use __icontains (case-insensitive search) to filter your database records.
+
+def employee_search(request):
+    query = request.GET.get('q', '') # Looks for ?q=search_term in URL
+    if query:
+        results = Employee.objects.filter(first_name__icontains=query)
+    else:
+        results = Employee.objects.all()
+        
+    return render(request, 'search.html', {'results': results, 'query': query})
+
+10. Handle a 404 Page (Not Found)
+Simple Definition: Use Django's built-in get_object_or_404() shortcut in your view. If the record isn't found, Django automatically stops execution and serves a 404 error page.
+
+from django.shortcuts import render, get_object_or_404
+from .models import Employee
+
+def employee_detail(request, emp_id):
+    # If employee with id doesn't exist, throws a 404 instantly
+    employee = get_object_or_404(Employee, id=emp_id)
+    return render(request, 'detail.html', {'employee': employee})
