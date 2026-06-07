@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'intro',
     'calculator',
     'student',
-    'product'
+    'product',
+    'addition'
 ]
 
 MIDDLEWARE = [
