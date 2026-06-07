@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from .models import Products,Categories
 from django.contrib import messages
+from .forms import InsertProduct
 
 # Create your views here.
 def create(request):
@@ -46,3 +47,17 @@ def delete(request,pk):
         messages.success(request, "Product deleted successfully!")
         return redirect('view')
         # return render(request,'product/view.html',{'msg':'Product Deleted Successfullyy....','products':products})
+
+
+def insert_product_form(request):
+    if request.method=='GET':
+        emptyform = InsertProduct()
+        return render(request,'product/model_form_insert.html',{'form':emptyform})
+        
+    if request.method=='POST':
+        data_form = InsertProduct(request.POST)
+        if data_form.is_valid():
+            data_form.save()
+            return redirect('view')
+        else:
+            return render(request,'product/model_form_insert.html')

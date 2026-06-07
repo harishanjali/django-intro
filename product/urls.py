@@ -5,5 +5,6 @@ urlpatterns = [
     path('create/',views.create,name='create'),
     path('view/',views.view,name='view'),
     path('update/<int:pk>/',views.update,name='update'),
-    path('delete/<int:pk>/',views.delete,name='delete')
+    path('delete/<int:pk>/',views.delete,name='delete'),
+    path('insert/',views.insert_product_form,name='insert')
 ]
