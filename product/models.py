@@ -28,7 +28,7 @@ class Products(models.Model):
     pname = models.CharField(max_length=30)
     pprice = models.FloatField()
     cat = models.ForeignKey(Categories,on_delete=models.SET_NULL,null=True)
-
+    image = models.ImageField(upload_to='images/',null=True)
 
     #for getting the product name in print statement globally
     def __str__(self):

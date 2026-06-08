@@ -130,6 +130,10 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static/']
 
+#media
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR/MEDIA_URL
+
 # The toolbar only appears if your IP is listed here
 INTERNAL_IPS = [
     "127.0.0.1",

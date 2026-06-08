@@ -7,6 +7,7 @@
             <th>Product name</th>
             <th>Product price in Rs.</th>
             <th>Category</th>
+            <th>Image</th>
             <th>Update Action</th>
             <th>Delete action</th>
         </tr>
@@ -16,6 +17,11 @@
                 <td><a href="{% url 'update' product.id %}">{{product.pname}}</a></td>
                 <td>{{product.pprice}}</td>
                 <td>{{product.cat}}</td>
+                <td>
+                    {% if product.image %}
+                    <img src="{{product.image.url}}" alt="" height="150px" width="150px">
+                    {% endif %}
+                </td>
                 <td><a href="{% url 'update' product.id %}">Update</a></td>
                 <td><a href="{% url 'delete' product.id %}">Delete</a></td>
             </tr>

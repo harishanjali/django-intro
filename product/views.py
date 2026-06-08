@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from .models import Products,Categories
 from django.contrib import messages
 from .forms import InsertProduct
+from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
 def create(request):
@@ -26,19 +27,22 @@ def view(request):
         return render(request,'product/view.html',{'products':products})
     
 def update(request,pk):
-    if request.method=='GET':
-        product = Products.objects.get(id=pk)
-        categories = Categories.objects.all()
-        return render(request,'product/update.html',{'product':product,'categories':categories})
-    if request.method=='POST':
-        pname = request.POST.get('pname')
-        pprice = float(request.POST.get('pprice'))
-        pcat = request.POST.get('pcat')
-        messages.success(request, "Product Updated successfully!")
-        pobj = Products(id=pk,pname=pname,pprice=pprice,cat_id=pcat)
-        pobj.save()
-        return redirect('view')
-    
+    # Fetch the existing instance from the database
+    instance = get_object_or_404(Products, pk=pk)
+
+    if request.method == 'POST':
+        # Bind the POST data AND the specific instance to the form
+        form = InsertProduct(request.POST, request.FILES, instance=instance)
+        
+        if form.is_valid():
+            form.save() # Automatically updates the existing instance
+            return redirect('view') # Replace with your success URL
+    else:
+        # Pre-fill the form with the existing data for GET requests
+        form = InsertProduct(instance=instance)
+
+    context = {'form': form, 'instance': instance}
+    return render(request, 'product/model_form_insert.html', context)
 def delete(request,pk):
     if request.method=='GET':
         product = Products.objects.get(id=pk)
@@ -55,7 +59,7 @@ def insert_product_form(request):
         return render(request,'product/model_form_insert.html',{'form':emptyform})
         
     if request.method=='POST':
-        data_form = InsertProduct(request.POST)
+        data_form = InsertProduct(request.POST,request.FILES)
         if data_form.is_valid():
             data_form.save()
             return redirect('view')
