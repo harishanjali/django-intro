@@ -65,6 +65,7 @@ a {
     background-color: #1e293b; /* Dark slate blue */
     color: #94a3b8;
     padding: 2rem 1rem;
+    overflow-y: auto;
 }
 
 .sidebar-links {

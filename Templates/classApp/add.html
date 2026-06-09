@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block main %}
+<h1>Classbased views addition example</h1>
+<form action="" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="add">
+</form>
+<h1>{{result}}</h1>
+{% endblock %}

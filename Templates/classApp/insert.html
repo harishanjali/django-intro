@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block main %}
+<h1>Basic operations using generic views(createview,updateview,deleteview)</h1>
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+{{form}}
+<input type="submit" value="insert"/>
+</form>
+{% endblock %}
