@@ -19,6 +19,7 @@ from django.urls import path,include
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.auth import views as auth_views
+from intro.views import SignupView
 
 urlpatterns = [
     #debug tool bar always first
@@ -30,6 +31,9 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 
+    #for signup
+    path('signup/',SignupView.as_view(template_name='registration/signup.html'),name='signup'),
+
     #app urls
     path('',include('intro.urls')),
     path('hari/',include('firstApp.urls')),
@@ -39,6 +43,7 @@ urlpatterns = [
     path('product/',include('product.urls')),
     path('addition/',include('addition.urls')),
     path('class/',include('classApp.urls')),
+    path('api/',include('api.urls')),
 ]
 
 urlpatterns = urlpatterns+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

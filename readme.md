@@ -124,3 +124,14 @@ The simplest way to implement this is by using Django’s built-in, production-r
 You don't have to write any backend logic—Django handles the authentication; you just supply the HTML template.
 
 Here is the step-by-step setup to get it working effortlessly.
+
+#apis concept
+-first pip install django-rest-framework
+-then create apis using this framework
+-status code is very important in api call
+-200 ok
+-404 not found
+-400 bad request etc.
+#for testing api you can use rest web page given by rest framework(browsable api)
+# go and type http://127.0.0.1:8000/api/products/
+    -list of product objects will come in array in JSON
