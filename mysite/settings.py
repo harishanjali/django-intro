@@ -135,6 +135,15 @@ STATICFILES_DIRS = [BASE_DIR / 'static/']
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR/MEDIA_URL
 
+# Where to send users after a successful login
+LOGIN_REDIRECT_URL = 'dashboard'  # Replace with your home/dashboard URL name
+
+# Where to send users after they log out
+LOGOUT_REDIRECT_URL = 'login'
+
+# Where to kick users if they try to access a Mixin-protected page while logged out
+LOGIN_URL = 'login'
+
 # The toolbar only appears if your IP is listed here
 INTERNAL_IPS = [
     "127.0.0.1",

@@ -113,3 +113,14 @@ def employee_detail(request, emp_id):
     # If employee with id doesn't exist, throws a 404 instantly
     employee = get_object_or_404(Employee, id=emp_id)
     return render(request, 'detail.html', {'employee': employee})
+
+
+
+#authentication and autherization
+
+To use authentication mixins like LoginRequiredMixin, Django needs to know how to log users in and out.
+
+The simplest way to implement this is by using Django’s built-in, production-ready auth views (LoginView and LogoutView). 
+You don't have to write any backend logic—Django handles the authentication; you just supply the HTML template.
+
+Here is the step-by-step setup to get it working effortlessly.

@@ -18,10 +18,19 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf.urls.static import static
 from django.conf import settings
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+    #debug tool bar always first
     path('__debug__/',include("debug_toolbar.urls")),
+    #admin url
     path('admin/', admin.site.urls),
+
+    # 1. Standard Login and Logout routes
+    path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+
+    #app urls
     path('',include('intro.urls')),
     path('hari/',include('firstApp.urls')),
     path('calculator/',include('calculator.urls')),
