@@ -7,6 +7,7 @@ from rest_framework.status import HTTP_200_OK,HTTP_400_BAD_REQUEST,HTTP_201_CREA
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from .serializer import CustomProductSerializer
+from rest_framework.pagination import PageNumberPagination
 # Create your views here.
 class ProductApi(APIView):
     def get(self,request):
@@ -14,8 +15,11 @@ class ProductApi(APIView):
         #needs to convert to json so we use serialisation
         #two types we have
         #normal serialisaiton,model serialisation
-        serialise_obj = PrdSer(prds,many=True)#contains json obj
-        return Response(serialise_obj.data,status=HTTP_200_OK)
+        paginator = PageNumberPagination()
+        paginator.page_size = 3
+        pages = paginator.paginate_queryset(prds,request)
+        serialise_obj = PrdSer(pages,many=True)#contains json obj
+        return paginator.get_paginated_response(serialise_obj.data)
     
     def post(self,request):
         s_obj = PrdSer(data=request.data)
@@ -55,3 +59,18 @@ class CustomProductApi(APIView):
             return Response(status=HTTP_201_CREATED)
         else:
             return Response(s_obj.errors,status=HTTP_400_BAD_REQUEST )
+        
+class ModifyCustomProductApi(APIView):
+    def get(self,request,pk):
+        prds = get_object_or_404(Products,id=pk)
+        s_obj = PrdSer(prds)
+        return Response(s_obj.data,status=HTTP_200_OK)
+
+    def put(self,request,pk):
+        prds = get_object_or_404(Products,id=pk)
+        s_obj = CustomProductSerializer(prds,data=request.data)
+        if s_obj.is_valid()==True:
+            s_obj.save()
+            return Response(s_obj.data,status=HTTP_200_OK)
+        else:
+            return Response(s_obj.errors,status=HTTP_400_BAD_REQUEST)

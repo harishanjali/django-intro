@@ -135,3 +135,12 @@ Here is the step-by-step setup to get it working effortlessly.
 #for testing api you can use rest web page given by rest framework(browsable api)
 # go and type http://127.0.0.1:8000/api/products/
     -list of product objects will come in array in JSON
+
+
+    {
+    "id": 2,
+    "pname": "Fridge",
+    "pprice": 54000.0,
+    "c_gst":100,
+    "s_gst":100
+}

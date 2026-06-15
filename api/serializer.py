@@ -30,3 +30,10 @@ class CustomProductSerializer(serializers.Serializer):
         s_gst = validate_data['s_gst']
         p_obj = Products.objects.create(pname=pname,pprice=pprice+c_gst+s_gst)
         return p_obj
+    
+    def update(self,instance,validate_data):
+        instance.pname = validate_data['pname']
+        instance.pprice = validate_data['pprice']#+validate_data['c_gst']+validate_data['s_gst']
+        instance.save()
+
+        return instance
