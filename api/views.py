@@ -8,6 +8,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from .serializer import CustomProductSerializer
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.viewsets import ViewSet
 # Create your views here.
 class ProductApi(APIView):
     def get(self,request):
@@ -74,3 +75,34 @@ class ModifyCustomProductApi(APIView):
             return Response(s_obj.data,status=HTTP_200_OK)
         else:
             return Response(s_obj.errors,status=HTTP_400_BAD_REQUEST)
+
+
+class ProductsViewSet(ViewSet):
+    def list(self,request):
+        prd = Products.objects.all()
+        s_obj = PrdSer(prd,many=True)
+        return Response(s_obj.data,status=HTTP_200_OK)
+    def create(self,request):
+        s_obj = PrdSer(data=request.data)
+        if s_obj.is_valid() == True:
+            s_obj.save()
+            return Response(status=HTTP_201_CREATED)
+        else:
+            return Response(s_obj.errors,status=HTTP_400_BAD_REQUEST)
+
+    def update(self,request,pk):
+        prd = get_object_or_404(Products,id=pk)
+        s_obj = PrdSer(prd,data=request.data,partial=True)
+        if s_obj.is_valid() == True:
+            s_obj.save()
+            return Response(s_obj.data,status=HTTP_200_OK)
+        else:
+            return Response(s_obj.errors,status=HTTP_400_BAD_REQUEST)
+    def destroy(self,request,pk):
+        prd = get_object_or_404(Products,id=pk)
+        prd.delete()
+        return Response(status=HTTP_200_OK)
+    def retrieve(self,request,pk):
+        prd = get_object_or_404(Products,id=pk)
+        s_obj = PrdSer(prd)
+        return Response(s_obj.data,status=HTTP_200_OK)
