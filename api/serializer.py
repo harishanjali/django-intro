@@ -2,6 +2,7 @@ from rest_framework.serializers import ModelSerializer
 from product.models import Products
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
+from django.contrib.auth.models import User
 #serializer helps to convert the raw data into JSON and return the response
 class PrdSer(ModelSerializer):
     class Meta:
@@ -37,3 +38,8 @@ class CustomProductSerializer(serializers.Serializer):
         instance.save()
 
         return instance
+    
+class UserSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username','email','password']

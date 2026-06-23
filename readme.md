@@ -144,3 +144,24 @@ Here is the step-by-step setup to get it working effortlessly.
     "c_gst":100,
     "s_gst":100
 }
+
+# simple jwt token
+    --after successful login it will return refersh token and access token
+    --{
+    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc4MjI4MTkwMSwiaWF0IjoxNzgyMTk1NTAxLCJqdGkiOiJmMjczNDY2YzIxMWQ0MGFkOTNmZGU1MTY3ZTgwZDAzMyIsInVzZXJfaWQiOiI1In0.qbLdmuogqGckBM2yoRuSlUIbleUVU1GxDN2sAL5uC5Y",
+    "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzgyMTk1ODAxLCJpYXQiOjE3ODIxOTU1MDEsImp0aSI6IjZhNzhhYzQxMDhiNjRjMzI4NmRjNThlNTc1MjQ5ZDI0IiwidXNlcl9pZCI6IjUifQ.lb9ZIeXGx4v3aaJ64yjWATMRxjy_RBazEH8dNjaJBS8"
+}
+
+# how to access the secured api
+    --you have to include jwt access token in headers
+    url = 'api/login'
+    user_data={"username":"vcube","password":"vcube@123"}
+    resp = requests.post(url,user_data)
+    token = resp.json()['access']
+
+    get_url = 'products/'
+    resp = requests.get(get_url,headers={
+        "Authorization":f"Bearer {token}"
+    })
+    print(resp)
+    print(resp.json())
