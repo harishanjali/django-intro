@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 class PrdSer(ModelSerializer):
     class Meta:
         model = Products
-        fields = ['id','pname','pprice']
+        fields = '__all__'#['id','pname','pprice']
 
 class CustomProductSerializer(serializers.Serializer):
     # id = serializers.IntegerField()

@@ -165,3 +165,7 @@ Here is the step-by-step setup to get it working effortlessly.
     })
     print(resp)
     print(resp.json())
+
+## cors headers
+    --added cors headers to give access to other origins
+    --attaching the backend to front end by this cors headers.
