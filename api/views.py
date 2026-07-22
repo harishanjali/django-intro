@@ -14,11 +14,12 @@ from rest_framework.permissions import IsAuthenticated,IsAdminUser
 from rest_framework.generics import ListCreateAPIView
 # Create your views here.
 class ProductApi(APIView):
-    #authentication_classes = [JWTAuthentication] #adding the authentication uses
-    #permission_classes = [IsAuthenticated]#whether user logged oin or not
+    authentication_classes = [JWTAuthentication] #adding the authentication uses
+    permission_classes = [IsAuthenticated]#whether user logged oin or not
     #permission_classes = [IsAdminUser]#whether admin user logged oin or not
     def get(self,request):
         prds = Products.objects.all()#python query set
+        print(prds)
         #needs to convert to json so we use serialisation
         #two types we have
         #normal serialisaiton,model serialisation
